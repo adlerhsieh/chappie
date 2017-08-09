@@ -4,7 +4,14 @@ require 'yaml'
 require 'base64'
 require 'open-uri'
 
-config = YAML.load_file(File.expand_path("../app.yml", __FILE__))
+class Chappie
+  def initialize
+    
+  end
+
+  def reach
+    
+config = YAML.load_file(File.expand_path("../../app.yml", __FILE__))
 token = config["token"]
 url = config["url"]
 uri = URI("#{url}?auth_token=#{token}")
@@ -64,4 +71,6 @@ Content-Disposition: attachment; name=\"file\"; filename=\"image.png\"
   response = http.request request
   puts response.code
   puts response.body
+end
+  end
 end
