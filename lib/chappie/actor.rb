@@ -5,17 +5,15 @@ require 'open-uri'
 
 module Chappie
   class Actor
+    include Config
+
     def initialize(payload = {})
       @message = payload["item"]["message"]["message"] rescue nil
       @body = @message.to_s.gsub("/meme ", "")
     end
 
-    def token
-      @token ||= Config["token"]
-    end
-
     def act
-      url = Config["url"]
+      url = config["url"]
       uri = URI("#{url}?auth_token=#{token}")
 
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
@@ -40,9 +38,7 @@ module Chappie
         # puts response.body
 
         path = File.expand_path("../../../public/assets/images/false-alerm.png", __FILE__)
-        puts path
         data64 = open(path).read
-        puts data64
         request = Net::HTTP::Post.new uri
         request["Content-Type"] = "multipart/related; boundary=message_boundary"
         request.body = "
@@ -55,7 +51,7 @@ Content-Disposition: attachment; name=\"image_name\"
 Content-Type: image/png
 Content-Disposition: attachment; name=\"file\"; filename=\"image.png\"
 
-        #{data64}
+#{data64}
 --message_boundary
         "
         response = http.request request
