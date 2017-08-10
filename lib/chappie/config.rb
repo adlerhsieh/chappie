@@ -11,7 +11,7 @@ module Chappie
     end
 
     def host
-      @host ||= config["url"]
+      @host ||= config["host"]
     end
   end
 end

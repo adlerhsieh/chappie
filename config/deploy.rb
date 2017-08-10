@@ -1,6 +1,8 @@
 # config valid only for current version of Capistrano
 lock "3.9.0"
 
+set :rbenv_ruby, "2.2.2"
+
 set :application, "chappie"
 set :repo_url, "git@github.com:adlerhsieh/chappie.git"
 
@@ -8,7 +10,7 @@ set :repo_url, "git@github.com:adlerhsieh/chappie.git"
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/chappie"
+set :deploy_to, "/home/motionex/apps/chappie"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

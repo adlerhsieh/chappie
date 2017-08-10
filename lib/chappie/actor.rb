@@ -14,12 +14,13 @@ module Chappie
 
     def act
       Share.new("3704777", "false-alerm.png").send_file
-      Message.new("3704777", {
-        "color":"green",
-        "message":"My first notification (yey)",
-        "notify":false,
-        "message_format":"text"
-      }).send_message
+      # Message.new("3704777", {
+      #   "color":"green",
+      #   "message":"My first notification (yey)",
+      #   "notify":false,
+      #   "message_format":"text"
+      # }).send_message
+
       # url = config["url"]
       # uri = URI("#{url}?auth_token=#{token}")
 

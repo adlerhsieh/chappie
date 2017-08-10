@@ -19,7 +19,7 @@ module Chappie
 
     def send_file
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        data64 = open(path).read
+        data64 = open(file).read
         request = Net::HTTP::Post.new uri
         request["Content-Type"] = "multipart/related; boundary=message_boundary"
         request.body = "
@@ -27,7 +27,7 @@ module Chappie
 Content-Type: application/json; charset=UTF-8
 Content-Disposition: attachment; name=\"image_name\"
 
-{\"message\": \"This file is uploaded using API\"}
+{\"message\": \"\"}
 --message_boundary
 Content-Type: image/png
 Content-Disposition: attachment; name=\"file\"; filename=\"image.png\"
@@ -37,7 +37,6 @@ Content-Disposition: attachment; name=\"file\"; filename=\"image.png\"
         "
         response = http.request request
         puts response.code
-        puts response.body
 
       end
     end
