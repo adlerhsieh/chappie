@@ -8,12 +8,19 @@ module Chappie
     include Config
 
     def initialize(payload = {})
+      @room    = payload["item"]["room"]
       @message = payload["item"]["message"]["message"] rescue nil
-      @body = @message.to_s.gsub("/meme ", "")
+      @body    = @message.to_s.gsub("/meme ", "")
+    end
+
+    def room_id
+      @room_id ||= @room["id"]
     end
 
     def act
-      Share.new("3704777", "false-alerm.png").send_file
+      # Share.new("3704777", "false-alerm.png").send_file
+      Share.new(room_id, "false-alerm.png").send_file
+
       # Message.new("3704777", {
       #   "color":"green",
       #   "message":"My first notification (yey)",
