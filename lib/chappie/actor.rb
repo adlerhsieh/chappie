@@ -13,10 +13,17 @@ module Chappie
     end
 
     def act
-      url = config["url"]
-      uri = URI("#{url}?auth_token=#{token}")
+      Share.new("3704777", "false-alerm.png").send_file
+      Message.new("3704777", {
+        "color":"green",
+        "message":"My first notification (yey)",
+        "notify":false,
+        "message_format":"text"
+      }).send_message
+      # url = config["url"]
+      # uri = URI("#{url}?auth_token=#{token}")
 
-      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+      # Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
 
         # request = Net::HTTP::Get.new uri
         # response = http.request request
@@ -37,28 +44,28 @@ module Chappie
         # puts response.code
         # puts response.body
 
-        path = File.expand_path("../../../public/assets/images/false-alerm.png", __FILE__)
-        data64 = open(path).read
-        request = Net::HTTP::Post.new uri
-        request["Content-Type"] = "multipart/related; boundary=message_boundary"
-        request.body = "
---message_boundary
-Content-Type: application/json; charset=UTF-8
-Content-Disposition: attachment; name=\"image_name\"
+#         path = File.expand_path("../../../public/assets/images/false-alerm.png", __FILE__)
+#         data64 = open(path).read
+#         request = Net::HTTP::Post.new uri
+#         request["Content-Type"] = "multipart/related; boundary=message_boundary"
+#         request.body = "
+# --message_boundary
+# Content-Type: application/json; charset=UTF-8
+# Content-Disposition: attachment; name=\"image_name\"
+#
+# {\"message\": \"This file is uploaded using API\"}
+# --message_boundary
+# Content-Type: image/png
+# Content-Disposition: attachment; name=\"file\"; filename=\"image.png\"
+#
+# #{data64}
+# --message_boundary
+#         "
+#         response = http.request request
+#         puts response.code
+#         puts response.body
 
-{\"message\": \"This file is uploaded using API\"}
---message_boundary
-Content-Type: image/png
-Content-Disposition: attachment; name=\"file\"; filename=\"image.png\"
-
-#{data64}
---message_boundary
-        "
-        response = http.request request
-        puts response.code
-        puts response.body
-
-      end
+      # end
     end
   end
 end

@@ -9,5 +9,9 @@ module Chappie
     def token
       @token ||= config["token"]
     end
+
+    def host
+      @host ||= config["url"]
+    end
   end
 end
